@@ -1,14 +1,8 @@
 FROM alpine:edge
 MAINTAINER George Kutsurua <g.kutsurua@gmail.com>
 
-RUN apk update &&\
-    apk add postgresql postgresql-contrib curl &&\
-    curl -o /usr/local/bin/gosu -sSL "https://github.com/tianon/gosu/releases/download/1.4/gosu-amd64" &&\
-	chmod +x /usr/local/bin/gosu &&\
-	mkdir /docker-entrypoint-initdb.d &&\
-	mkdir -p /var/run/postgresql &&\
-	chown -R postgres /var/run/postgresql &&\
-	rm -rf /var/cache/apk/*
+RUN apk add --no-cache postgresql postgresql-dev postgresql-client postgresql-contrib \
+    postgresql-libs sudo
 
 ENV LANG=en_US.utf8 PGDATA=/var/lib/postgresql/data
 
