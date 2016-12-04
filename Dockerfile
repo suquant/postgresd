@@ -11,6 +11,6 @@ VOLUME ["/var/lib/postgresql/data"]
 COPY entrypoint.sh /
 
 ENTRYPOINT ["/entrypoint.sh"]
-CMD ["postgres"]
+CMD [""]
 
 EXPOSE 5432
