@@ -1,16 +1,19 @@
 FROM alpine:edge
 MAINTAINER George Kutsurua <g.kutsurua@gmail.com>
 
-RUN apk add --no-cache postgresql postgresql-dev postgresql-client postgresql-contrib \
-    postgresql-libs sudo
+RUN echo '@testing http://dl-cdn.alpinelinux.org/alpine/edge/testing' >> /etc/apk/repositories &&\
+    apk add --no-cache postgresql postgresql-client postgresql-contrib \
+    postgresql-libs postgresql-pglogical@testing sudo
 
-ENV LANG=en_US.utf8 PGDATA=/var/lib/postgresql/data
+ENV LANG=en_US.utf8 \
+    LC_ALL=en_US.utf8 \
+    LANGUAGE=en_US.utf8 \
+    PGDATA=/var/lib/postgresql/data
 
 VOLUME ["/var/lib/postgresql/data"]
 
 COPY entrypoint.sh /
 
 ENTRYPOINT ["/entrypoint.sh"]
-CMD [""]
 
 EXPOSE 5432
